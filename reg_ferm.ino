@@ -50,11 +50,7 @@ void setup() {
   digitalWrite(R1KYL, HIGH);
   digitalWrite(R2VARME, HIGH);
 
-  
   Serial.begin(9600);
-  
-
-    
   
   //Serial.println("MAX31855 test");
   // wait for MAX chip to stabilize
@@ -63,69 +59,54 @@ void setup() {
 
 void loop() {
   // basic readout test, just print the current temp
-   //Serial.print("Internal Temp = ");
-   //Serial.println(thermocouple1.readInternal());
+  //Serial.print("Internal Temp = ");
+  //Serial.println(thermocouple1.readInternal());
    
-    // sets the LED on
-               // waits for a second
-double setpoint = 4;
-
-
-                // say what you got:
-                Serial.print(setpoint);
-                Serial.print(","); 
-
-
-
-   double T_fermentor = thermocouple1.readCelsius();
-   
-     Serial.print(T_fermentor);
-     Serial.print(","); 
+  double setpoint = 4;
   
- 
-   delay(400);
+  // say what you got:
+  Serial.print(setpoint);
+  Serial.print(","); 
 
-   double T_isolering = thermocouple2.readCelsius();
+  double T_fermentor = thermocouple1.readCelsius();
    
-     Serial.print(T_isolering);
-     Serial.print(",");
+  Serial.print(T_fermentor);
+  Serial.print(","); 
+  
+  delay(400);
+
+  double T_isolering = thermocouple2.readCelsius();
    
-   double T_kylvatten = thermocouple3.readCelsius();
+  Serial.print(T_isolering);
+  Serial.print(",");
    
-     Serial.print(T_kylvatten);
-     Serial.print(",");
+  double T_kylvatten = thermocouple3.readCelsius();
+   
+  Serial.print(T_kylvatten);
+  Serial.print(",");
    
   double T_luft = thermocouple1.readInternal();
   
   Serial.println(T_luft);
    
   // seriella kommunikationen har ordningen (setpoint, T_fermentor, T_isolering, T_kylvatten, T_luft)
-
- 
-   delay(1000);
-   
-   double setpoint_max = setpoint + intervall;
-   double setpoint_min = setpoint - intervall;
-   
- 
- 
-
-     if (T_fermentor >= setpoint_max) {
-      digitalWrite(R1KYL, LOW); }
-       else { digitalWrite(R1KYL, HIGH);}
-        
   
-    if (T_fermentor <= setpoint_min) {
-        digitalWrite(R2VARME, LOW); }
-        else { digitalWrite(R2VARME, HIGH);}
-       
-       
-delay(300000);
+  delay(1000);
+   
+  double setpoint_max = setpoint + intervall;
+  double setpoint_min = setpoint - intervall;
+  
+  if (T_fermentor >= setpoint_max) {
+    digitalWrite(R1KYL, LOW); 
+  } else { 
+    digitalWrite(R1KYL, HIGH);
+  }
+        
+  if (T_fermentor <= setpoint_min) {
+    digitalWrite(R2VARME, LOW);
+  } else { 
+    digitalWrite(R2VARME, HIGH);
+  }
+            
+  delay(300000);
 }
-
-
-
-
-
-
-
